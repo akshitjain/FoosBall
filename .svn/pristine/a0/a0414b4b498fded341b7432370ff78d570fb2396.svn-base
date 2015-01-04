@@ -1,0 +1,89 @@
+package menu;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.*;
+
+public class FlipImageExample extends JFrame {
+	private static final long serialVersionUID = 1L;
+	ShowPanel panel;
+	JButton button;
+
+  public FlipImageExample() {
+    super("Flip the image");
+    Container container = getContentPane();
+    panel = new ShowPanel();
+    container.add(panel);
+
+    Box box = Box.createHorizontalBox();
+    button = new JButton("Start");
+    button.addActionListener(new ButtonListener());
+    button.setSize(100, 10);
+    box.add(Box.createHorizontalGlue());
+    box.add(button);
+   // box.setSize(100, 100);
+    //box.add(Box.createHorizontalGlue(),100);
+   // box.add(Box.createHorizontalGlue());
+    container.add(box, BorderLayout.SOUTH);
+   // container.a
+    addWindowListener(new WindowEventHandler());
+    setSize(1024, 683);
+    setVisible(true); 
+  }
+    class WindowEventHandler extends WindowAdapter {
+    public void windowClosing(WindowEvent e) {
+    System.exit(0);
+    }
+  }
+    public static void main(String arg[]) {
+    new FlipImageExample();
+  }
+    class ButtonListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+    if (!panel.flip) {
+        panel.flipImage();
+        panel.bufferedImage = panel.bufferedImage2;
+        panel.flip= true;
+      }
+    else {
+        panel.bufferedImage = panel.bufferedImage1;
+        panel.flip = false;
+      }
+      panel.repaint();
+    }
+  }
+}
+class ShowPanel extends JPanel {
+  BufferedImage bufferedImage, bufferedImage1, bufferedImage2;
+  boolean flip = false;
+
+    ShowPanel() {
+    setBackground(Color.white);
+    setSize(0, 400);
+    Image image = getToolkit().getImage("Images/coin.png");
+   // image.
+    MediaTracker mediaTracker = new MediaTracker(this);
+    mediaTracker.addImage(image, 1);
+    try {
+      mediaTracker.waitForAll();
+    } catch (Exception e) {}
+    bufferedImage1 = new BufferedImage(image.getWidth(this), 
+      image.getHeight(this),BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = bufferedImage1.createGraphics();
+    g2d.drawImage(image, 0, 0, this);
+    bufferedImage = bufferedImage1;
+  }
+    public void flipImage() {
+    bufferedImage2 = new BufferedImage(bufferedImage1.getWidth(), 
+    bufferedImage1.getHeight(), bufferedImage1.getType());
+    DataBuffer buffer1 = bufferedImage1.getRaster().getDataBuffer();
+    DataBuffer buffer2 = bufferedImage2.getRaster().getDataBuffer();
+      for (int i = buffer1.getSize() - 1, j = 0; i >= 0; --i, j++) {
+      buffer2.setElem(j, buffer1.getElem(i));
+    }
+  }
+    public void paintComponent(Graphics g) {
+     Graphics2D g2D = (Graphics2D) g;
+     g2D.drawImage(bufferedImage, 360, 100, this);
+  }
+} // - See more at: http://www.codemiles.com/java-examples/flip-image-in-java-t2836.html#sthash.sFTAdKaF.dpuf

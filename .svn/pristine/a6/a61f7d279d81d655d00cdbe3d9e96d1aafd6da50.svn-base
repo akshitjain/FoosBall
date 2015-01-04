@@ -1,0 +1,15 @@
+package menu;
+
+import java.awt.Frame;
+
+import javax.swing.JFrame;
+
+public class MainPanel extends Frame {
+	public void open(){
+	JFrame toss = new JFrame("Toss");
+	toss.setSize(1024, 683);
+	//toss.add(comp);
+	toss.setVisible(true);
+	toss.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}

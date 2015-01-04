@@ -1,0 +1,22 @@
+package mainclasses;
+
+import java.io.IOException;
+
+import menu.MenuPanel;
+
+
+public class FoosBallGame{
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		MenuPanel menuPanel = new MenuPanel();
+		menuPanel.setMenu();
+	}
+
+
+
+}

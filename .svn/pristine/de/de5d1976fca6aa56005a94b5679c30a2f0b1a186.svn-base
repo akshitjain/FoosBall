@@ -1,0 +1,67 @@
+package players;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import playground.PlayGround;
+
+public class Player1 extends Player {
+	public PlayGround playGround;
+
+	Timer timer1;
+	Timer timer2;
+
+	public Player1(PlayGround playGround) {
+		super(playGround, 5, 1, 1, 1);
+	}
+
+	public void moveDown() {
+		timer1 = new Timer();
+		timer1.scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (getPlayGround().getyPlayer1pos() < 480) {
+					getPlayGround().setyPlayer1pos(
+							getPlayGround().getyPlayer1pos() + getSigny()
+									* (getSpeed()));
+
+				} else {
+					this.cancel();
+				}
+				getPlayGround().repaint();
+
+			}
+		}, 0, getTime());
+	}
+
+	public void stopMoveDown() {
+		timer1.cancel();
+	}
+
+	public void moveUp() {
+		timer2 = new Timer();
+		timer2.scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (getPlayGround().getyPlayer1pos() > 210) {
+					getPlayGround().setyPlayer1pos(
+							getPlayGround().getyPlayer1pos() + (-1)
+									* getSigny() * (getSpeed()));
+				} else {
+					this.cancel();
+				}
+
+				getPlayGround().repaint();
+			}
+		}, 0, getTime());
+	}
+
+	public void stopMoveUp() {
+		timer2.cancel();
+	}
+
+}

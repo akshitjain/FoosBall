@@ -1,0 +1,5 @@
+package ball;
+
+public interface Collision {
+	void onCollision(int positionX,int positionY);
+}
