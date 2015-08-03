@@ -1,7 +1,7 @@
 # FoosBall Game
 #### _Table Football,the most loving funtime game --now available for desktop_
 <p align="center">
-<img width="50%" src="http://www.dl.minibazi.ir/images/foot_dasti.jpg" />
+<img width="50%" src="foosballgui.png" />
 </p>
 
 
